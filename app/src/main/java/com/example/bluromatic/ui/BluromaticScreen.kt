@@ -29,11 +29,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.RadioButton
-import androidx.compose.material.RadioButtonDefaults
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,14 +44,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-//import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bluromatic.R
 import com.example.bluromatic.data.BlurAmount
 import com.example.bluromatic.ui.theme.BluromaticTheme
 
-//@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun BluromaticScreen(blurViewModel: BlurViewModel = viewModel(factory = BlurViewModel.Factory)) {
     val uiState by blurViewModel.blurUiState.collectAsStateWithLifecycle()
@@ -112,7 +106,18 @@ private fun BlurActions(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
-        Button(onGoClick) { Text(stringResource(R.string.go)) }
+        when (blurUiState) {
+            is BlurUiState.Default -> {
+                Button(onGoClick) { Text(stringResource(R.string.go)) }
+            }
+            is BlurUiState.Loading -> {
+                Button(onCancelClick) { Text(stringResource(R.string.cancel_work)) }
+                CircularProgressIndicator(modifier = modifier.padding(8.dp))
+            }
+            is BlurUiState.Complete -> {
+                Button(onGoClick) { Text(stringResource(R.string.go)) }
+            }
+        }
     }
 }
 
