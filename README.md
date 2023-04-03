@@ -14,10 +14,10 @@ This app demonstrates the use of WorkManager. It is part of the [Android Basics 
 
 Environment
 
-- Kotlin 1.7.20
+- Kotlin 1.8.0
 - Android Studio Electric Eel 2022.1.1
-- Compose 1.3.2
-- Gradle Plugin 7.4.0
+- Compose BOM 2023.01.00
+- Gradle Plugin 7.4.2
 
 ---
 
@@ -25,5 +25,5 @@ Environment
 language: kotlin
 repo: bluromatic_composed
 status: active
-updated: 2023-01-15
+updated: 2023-04-03
 ```
